@@ -10,8 +10,10 @@ using namespace std;
 *    @param A generic vector
 **/
 template <typename T>
-void printArray(vector<t> v_) {
-	for (auto& element : v_) {
+void printArray(vector<t> v_) 
+{
+	for (auto& element : v_) 
+	{
 		cout << element << endl;
 	}
 }
