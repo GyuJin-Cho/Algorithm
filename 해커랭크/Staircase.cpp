@@ -15,7 +15,7 @@ int main()
 		}
 		for (int z = 0; z <count ; z++)
 		{
-			cout << '*';
+			cout << '#';
 		}
 		count++;
 		cout << endl;
