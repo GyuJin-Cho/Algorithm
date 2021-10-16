@@ -2,53 +2,40 @@
 #include<string>
 
 using namespace std;
-int map[500][500];
+int map[501][501];
 int main()
 {
-	int N;
-	int M;
-	int B;
-	cin >> N>> M>> B;
-	int min=INT_MAX;
-	int max=-1;
-	int countMin = 0;
-	int countMax = 0;
+	int N, M, B;
+	int mintime = 1234567890;
+	int maxheight = -1;
+	cin >> N >> M >> B;
 	for (int i = 0; i < N; i++)
-	{
 		for (int j = 0; j < M; j++)
-		{
 			cin >> map[i][j];
-			if (min > map[i][j])
-			{
-				min = map[i][j];
-			}
-			if (max < map[i][j])
-			{
-				max = map[i][j];
-			}
-		}
-	}
-	for (int i = 0; i < N; i++)
+
+	for (int height = 0; height <= 256; height++) 
 	{
-		for (int j = 0; j < M; j++)
+		int inven = 0;
+		int remove = 0;
+		for (int i = 0; i < N; i++)
 		{
-			if (min != map[i][j])
+			for (int j = 0; j < M; j++) 
 			{
-				countMin += 2;
-				B++;
-				map[i][j]--;
+				int curheight = map[i][j] - height;
+				if (curheight < 0) inven -= curheight;
+				else remove += curheight;
 			}
-			if(max!=map[i][j]&&B>=1)
+		}
+		if (remove + B >= inven) 
+		{
+			int ttime = 2 * remove + inven;
+			if (mintime >= ttime) 
 			{
-				countMax++;
-				B--;
-				map[i][j]++;
+				mintime = ttime;
+				maxheight = height;
 			}
 		}
 	}
-	if (countMax > countMin)
-		cout << countMin << " " << map[0][0];
-	else if (countMax < countMin)
-		cout << countMax << " " << map[0][0];
+	cout << mintime << " " << maxheight;
 	return 0;
 }
