@@ -47,6 +47,6 @@ int main()
 		
 	}
 
-	cout << ChangeCost << '\n';
+	cout << ChangeCost;
 	return 0;
 }
