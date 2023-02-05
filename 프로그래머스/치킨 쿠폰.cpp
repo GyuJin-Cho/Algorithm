@@ -1,0 +1,28 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int solution(int chicken)
+{
+    int answer = 0;
+
+    int coupon = chicken;
+
+    while(coupon>=10)
+    {
+        int leftcoupon = coupon % 10;
+        answer += coupon / 10;
+        coupon = leftcoupon + coupon / 10;
+    }
+
+    return answer;
+}
+
+int main()
+{
+    cout << solution(1081);
+
+	return 0;
+}
