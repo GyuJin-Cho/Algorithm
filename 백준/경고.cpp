@@ -16,12 +16,12 @@ int main()
 	}
 
 	int sHour = stoi(start.substr(0, 2));
-	int sMin = stoi(start.substr(3, 6));
-	int sSec = stoi(start.substr(6, 9));
+	int sMin = stoi(start.substr(3, 2));
+	int sSec = stoi(start.substr(6, 2));
 
 	int eHour = stoi(end.substr(0, 2));
-	int eMin = stoi(end.substr(3, 6));
-	int eSec = stoi(end.substr(6, 9));
+	int eMin = stoi(end.substr(3, 2));
+	int eSec = stoi(end.substr(6, 2));
 
 	int fSec = eSec - sSec;
 	if(fSec<0)
