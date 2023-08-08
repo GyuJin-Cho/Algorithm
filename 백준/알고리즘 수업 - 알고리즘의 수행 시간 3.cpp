@@ -15,7 +15,7 @@ using namespace std;
 
 int main()
 {
-	long long n;
+	unsigned long long n;
 	cin >> n;
 	cout << n*n << '\n' << 2;
 
