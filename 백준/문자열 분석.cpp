@@ -19,16 +19,14 @@ int main()
 	string s="1";
 	
 
-	while (1)
+	while (getline(cin, s))
 	{
 		int so = 0;
 		int dae = 0;
 		int num = 0;
 		int space = 0;
 		cin.ignore(NULL);
-		getline(cin, s);
-		if (s == "")
-			break;
+	
 		for (int i = 0; i < s.size(); i++)
 		{
 			if (s[i] >= 'A' && s[i] <= 'Z')
