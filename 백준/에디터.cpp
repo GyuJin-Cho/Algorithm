@@ -47,8 +47,7 @@ int main()
 		{
 			if (cur != li.begin())
 			{
-				cur--;
-				li.erase(cur);
+				cur = li.erase(--cur);
 			}
 				
 		}
