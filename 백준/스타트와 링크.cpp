@@ -39,6 +39,10 @@ int DFS(int index, vector<int>& first, vector<int>& second)
 			diff = -diff;
 		return diff;
 	}
+	if (first.size() > n / 2) 
+		return -1;
+	if (second.size() > n / 2) 
+		return -1;
 	int answer = -1;
 	first.push_back(index);
 	int t1 = DFS(index + 1, first, second);
