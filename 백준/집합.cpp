@@ -1,55 +1,69 @@
-#include <iostream>
-#include <string>
+#include<iostream>
+#include<vector>
+#include<map>
+#include<algorithm>
+#include<cmath>
+#include<string>
+#include<queue>
+#include<stack>
+#include<set>
+#include<unordered_map>
+#include<unordered_set>
+#include<memory>
 
 using namespace std;
 
 int main()
 {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
+	int n = 20;
+	int m;
+	cin >> m;
+	int BIT = 0;
+	string s;
+	int x;
+	while (n--)
+	{
+		cin >> s;
+		if (s == "add")
+		{
+			cin >> x;
+			x--;
+			BIT = (BIT | (1 << x));
+		}
+		else if (s == "remove")
+		{
+			cin >> x;
+			x--;
+			BIT = (BIT & (~(1 << x)));
+		}
+		else if (s == "check")
+		{
+			cin >> x;
+			x--;
+			if (BIT & (1 << x))
+			{
+				cout << 1 << '\n';
+			}
+			else
+			{
+				cout << 0 << '\n';
+			}
+		}
+		else if (s == "toggle")
+		{
+			cin >> x;
+			x--;
+			BIT = BIT ^ (1 << x);
+		}
+		else if (s == "all")
+		{
+			BIT = (1 << n) - 1;
+		}
+		else if (s == "empty")
+		{
+			BIT = 0;
+		}
+	}
 
-    int M;
-    cin >> M;
-
-    string s;
-    int n;
-    int BIT = 0;
-    for (int i = 0; i < M; i++)
-    {
-        cin >> s;
-        if (s == "add")
-        {
-            cin >> n;
-            BIT |= (1 << n);
-        }
-        else if (s == "remove")
-        {
-            cin >> n;
-            BIT &= ~(1 << n);
-        }
-        else if (s == "check")
-        {
-            cin >> n;
-            if (BIT & (1 << n))
-                cout << 1 << '\n';
-            else
-                cout << 0 << '\n';
-        }
-        else if (s == "toggle")
-        {
-            cin >> n;
-            BIT ^= (1 << n);
-        }
-        else if (s == "all")
-        {
-            BIT = (1 << 21) - 1;
-        }
-        else if (s == "empty")
-        {
-            BIT = 0;
-        }
-    }
-
-    return 0;
+	return 0;
 }
