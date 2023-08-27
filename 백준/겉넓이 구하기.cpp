@@ -12,8 +12,8 @@
 #include<memory>
 
 using namespace std;
-int a[101][101];
-bool d[101][101][101];
+int a[111][111];
+bool d[111][111][111];
 int dx[] = { 0,0,0,0,1,-1 };
 int dy[] = { 0,0,1,-1,0,0 };
 int dz[] = { 1,-1,0,0,0,0 };
