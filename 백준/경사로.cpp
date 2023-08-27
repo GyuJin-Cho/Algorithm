@@ -64,6 +64,7 @@ int main()
 {
 	ios_base::sync_with_stdio(false);
 	cin.tie(0);
+	cout.tie(0);
 	int n, l;
 	cin >> n >> l;
 	vector<vector<int>> a(n, vector<int>(n));
