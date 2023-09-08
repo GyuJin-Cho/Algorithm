@@ -16,7 +16,16 @@ using namespace std;
 
 bool prime[10001];
 bool c[10001];
-int d[10001];
+
+class node
+{
+public:
+	int next;
+	int cnt;
+	node(int n, int c) : next(n), cnt(c){}
+	node() : next(0), cnt(0) {}
+	
+};
 
 int change(int num, int index, int digit)
 {
@@ -54,32 +63,33 @@ int main()
 		int n, m;
 		cin >> n >> m;
 		memset(c, false, sizeof(c));
-		memset(d, 0, sizeof(d));
-		d[n] = 0;
 		c[n] = true;
-		queue<int> q;
-		q.push(n);
+		queue<node> q;
+		q.push(node(n,0));
 		while(!q.empty())
 		{
-			int now = q.front();
+			node now = q.front();
 			q.pop();
+			if(now.next==m)
+			{
+				cout << now.cnt<<'\n';
+				break;
+			}
 			for(int i=0;i<4;i++)
 			{
 				for(int j=0;j<=9;j++)
 				{
-					int next = change(now, i, j);
+					int next = change(now.next, i, j);
 					if(next!=-1)
 					{
 						if(!prime[next]&&!c[next])
 						{
-							q.push(next);
-							d[next] = d[now] + 1;
+							q.push(node(next,now.cnt+1));
 							c[next] = true;
 						}
 					}
 				}
 			}
 		}
-		cout << d[m]<<'\n';
 	}
 }
