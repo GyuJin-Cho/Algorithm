@@ -49,7 +49,7 @@ bool BFS(const int&l, const int&r)
 								continue;
 							int diff = a[ny][nx] - a[y][x];
 							if (diff < 0)
-								diff = -diff;
+								diff = abs(diff);
 							if(l<=diff&&diff<=r)
 							{
 								q.push({ ny,nx });
