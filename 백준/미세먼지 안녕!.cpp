@@ -26,7 +26,8 @@ void go(int sx, int sy, int z)
     int k = 0;
     while (true) 
     {
-        if (x == sx && y == sy) break;
+        if (x == sx && y == sy)
+            break;
         swap(prev, a[x][y]);
         x += dx[k];
         y += dy[k];
@@ -95,7 +96,8 @@ int main()
         {
             for (int j = 0; j < m; j++) 
             {
-                if (a[i][j] == -1) continue;
+                if (a[i][j] == -1) 
+                    continue;
                 a[i][j] += b[i][j];
                 b[i][j] = 0;
             }
@@ -108,7 +110,8 @@ int main()
     {
         for (int j = 0; j < m; j++) 
         {
-            if (a[i][j] >= 0) {
+            if (a[i][j] >= 0) 
+            {
                 ans += a[i][j];
             }
         }
