@@ -98,7 +98,8 @@ int main()
                 {
                     a[i][j] = 0;
                 }
-                if (nn < (int)v.size() * 2) {
+                if (nn < (int)v.size() * 2) 
+                {
                     nn = (int)v.size() * 2;
                 }
             }
