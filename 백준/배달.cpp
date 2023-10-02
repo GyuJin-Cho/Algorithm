@@ -97,6 +97,6 @@ int main()
             }
         }
     }
-    cout << ans << '\n';
+    cout << ans;
     return 0;
 }
