@@ -24,6 +24,9 @@ bool IsPrime(long long n)
 
 int main()
 {
+	ios_base::sync_with_stdio(false);
+	cin.tie(0);
+	cout.tie(0);
 	int T;
 	cin >> T;
 	while(T--)
@@ -33,7 +36,7 @@ int main()
 		if (n >= 0 && n <= 2)
 			cout << 2 << '\n';
 		else if (n == 3)
-			cout << 3;
+			cout << 3<<'\n';
 		else 
 		{
 			while (!IsPrime(n))
