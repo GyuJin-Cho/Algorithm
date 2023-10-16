@@ -42,6 +42,6 @@ int main()
 	DFS(0, 0);
 
 	cout << ans;
-
+	
 	return 0;
 }
