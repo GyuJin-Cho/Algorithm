@@ -46,7 +46,6 @@ int main()
 		breakingchanal[Breaking] = true;
 	}
 
-
 	int Min = abs(chanal - 100);
 	for(int i=0;i <= 1000000;i++)
 	{
@@ -57,6 +56,6 @@ int main()
 		}
 	}
 	cout << Min;
-
+	
 	return 0;
 }
