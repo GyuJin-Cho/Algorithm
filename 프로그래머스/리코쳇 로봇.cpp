@@ -161,7 +161,7 @@ int solution(vector<string> board)
 
 int main()
 {
-    cout << solution({ ".D.R", "....", ".G..", "...D" });
+    cout << solution({ "...D..R", ".D.G...", "....D.D", "D....D.", "..D...." });
 
     return 0;
 }
