@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <queue>
+#include <cstring>
 
 using namespace std;
 
@@ -17,7 +18,7 @@ int dx[] = { 1,0,-1,0 };
 int solution(vector<string> maps)
 {
     int answer = 0;
-    int sy, sx, gy, gx,ly,lx;
+    int sy, sx, gy, gx, ly, lx;
     for(int i=0;i<maps.size();i++)
     {
 	    for(int j=0;j<maps[i].size();j++)
