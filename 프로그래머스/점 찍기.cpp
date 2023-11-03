@@ -33,7 +33,6 @@ long long solution(int k, int d)
         answer += point(i, d) / k;
     }
 
-
     return answer;
 }
 
