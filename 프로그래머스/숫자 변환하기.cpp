@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 #include <queue>
-
+#include <tuple>
 using namespace std;
 
 bool visit[1000001];
@@ -54,9 +54,6 @@ int BFS(int x, int y, int n)
 int solution(int x, int y, int n)
 {
     int answer = BFS(x,y,n);
-
-
-
     return answer;
 }
 
