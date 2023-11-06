@@ -12,7 +12,7 @@ int solution(vector<int> arrayA, vector<int> arrayB)
     MaxSize = max(MaxSize, *max_element(arrayB.begin(), arrayB.end()));
     int MaxA = MIN;
     int MaxB = MIN;
-    for(int i=2;i<MaxSize;i++)
+    for(int i=2;i<=MaxSize;i++)
     {
         bool ch = false;
 	    for(int j=0;j<arrayA.size();j++)
@@ -38,7 +38,7 @@ int solution(vector<int> arrayA, vector<int> arrayB)
             MaxA = i;
     }
 
-    for (int i = 2; i < MaxSize; i++)
+    for (int i = 2; i <= MaxSize; i++)
     {
         bool ch = false;
         for (int j = 0; j < arrayA.size(); j++)
