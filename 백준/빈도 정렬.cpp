@@ -13,12 +13,12 @@
 #include<cstring>
 
 using namespace std;
-map <int, int> order; //index 저장
+map <int, int> order;
 
 bool cmp(pair<int, int>& a, pair<int, int>& b)
 {
 	if (a.second == b.second)
-		return order[a.first] < order[b.first]; //기존의 순서 지키기
+		return order[a.first] < order[b.first];
 
 	return a.second > b.second;
 }
