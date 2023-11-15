@@ -7,14 +7,14 @@ int answer = 0;
 constexpr int MAX = 100001;
 bool Switch[MAX];
 
-void DFS(int node, int parent, vector<vector<int>>& info)
+void DFS(int node, int parent, vector<vector<int>>& v)
 {
-    for (int i = 0; i < info[node].size(); i++)
+    for (int i = 0; i < v[node].size(); i++)
     {
-        if (info[node][i] != parent)
+        if (v[node][i] != parent)
         {
-            DFS(info[node][i], node, info);
-            if (!Switch[info[node][i]] && !Switch[node])
+            DFS(v[node][i], node, v);
+            if (!Switch[v[node][i]] && !Switch[node])
             {
                 Switch[node] = true;
                 answer++;
@@ -26,13 +26,13 @@ void DFS(int node, int parent, vector<vector<int>>& info)
 
 int solution(int n, vector<vector<int>> lighthouse)
 {
-    vector<vector<int>> info(n + 1);
+    vector<vector<int>> v(n + 1);
     for (int i = 0; i < lighthouse.size(); i++)
     {
-        info[lighthouse[i][0]].push_back(lighthouse[i][1]);
-        info[lighthouse[i][1]].push_back(lighthouse[i][0]);
+        v[lighthouse[i][0]].push_back(lighthouse[i][1]);
+        v[lighthouse[i][1]].push_back(lighthouse[i][0]);
     }
-    DFS(1, 1, info);
+    DFS(1, 1, v);
     return answer;
 }
 
