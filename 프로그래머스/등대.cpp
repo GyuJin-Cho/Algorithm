@@ -1,3 +1,4 @@
+#include <iostream>
 #include <string>
 #include <vector>
 
@@ -37,7 +38,7 @@ int solution(int n, vector<vector<int>> lighthouse)
 
 int main()
 {
-    vector<vector<int>> v;
+    vector<vector<int>> v = { {1, 2},{1, 3},{1, 4},{1, 5},{5, 6}, {5, 7},{5, 8}};
     cout << solution(8, v);
 
     return 0;
