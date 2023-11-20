@@ -38,7 +38,5 @@ int main()
 	}
 
 	cout << arr.size() << '\n';
-	/*for (int i : v)
-		cout << i << ' ';*/
 	return 0;
 }
