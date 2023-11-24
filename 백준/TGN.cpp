@@ -19,7 +19,7 @@ int main()
 	int n;
 	cin >> n;
 	int r, e, c;
-	for(int i=0;i<3;i++)
+	for(int i=0;i<n;i++)
 	{
 		cin >> r >> e >> c;
 
