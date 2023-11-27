@@ -17,6 +17,8 @@ long long DP[1001][1001];
 constexpr int MOD = 10007;
 int main()
 {
+	ios::sync_with_stdio(false);
+	cin.tie(0);
 	DP[0][0] = 1;
 	DP[1][0] = 1;
 	DP[1][1] = 1;
