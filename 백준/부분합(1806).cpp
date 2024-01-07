@@ -16,36 +16,37 @@ using namespace std;
 const int INF = 1e9;
 int main()
 {
-	int n, m;
-	cin >> n >> m;
-	vector<int> arr(n + 1);
+	ios::sync_with_stdio(false);
+	cin.tie(0);
+	int n, s;
+	cin >> n >> s;
+	vector<int> v(n + 1);
+
 	for (int i = 0; i < n; i++)
-		cin >> arr[i];
+		cin >> v[i];
+
 	int start = -1;
 	int end = -1;
+	int ans = INF;
 	int sum = 0;
-	int length = INF;
 
-	while(end<n&&start<=n)
+	while (start <= end && n > end)
 	{
-		if(sum<m)
+		if (sum < s)
 		{
 			end++;
-			sum += arr[end];
+			sum += v[end];
 		}
-		else if(sum>=m)
+		else if (sum >= s)
 		{
-			if(length>(end-start))
-			{
-				length = end - start;
-			}
+			ans = min(ans, end - start);
 			start++;
-			sum -= arr[start];
+			sum -= v[start];
 		}
 	}
-	if (length == INF)
+	if (ans == INF)
 		cout << 0;
 	else
-		cout << length;
+		cout << ans;
 	return 0;
 }
