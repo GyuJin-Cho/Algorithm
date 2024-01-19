@@ -36,7 +36,8 @@ string BFS(string start, int count)
 			{
 				for (int b = a + 1; b < length; b++)
 				{
-					if (a == 0 && start[b] == '0') continue;
+					if (a == 0 && start[b] == '0')
+						continue;
 					swap(start[a], start[b]);
 					q.push(start);
 					swap(start[a], start[b]);
