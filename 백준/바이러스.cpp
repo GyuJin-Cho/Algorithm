@@ -1,40 +1,49 @@
 #include<iostream>
+#include<vector>
+#include<map>
 #include<algorithm>
+#include<cmath>
+#include<string>
+#include<queue>
+#include<stack>
+#include<set>
+#include<unordered_map>
+#include<unordered_set>
+#include<memory>
+#include<cstring>
 
 using namespace std;
-int computer[101][101];
-int k;
-int n;
-int cnt = 0;
-bool visit[101];
+vector<int> arr[101];
+bool visited[101];
+int cnt;
 void DFS(int v)
 {
-	visit[v] = true;
-	for (int i = 1; i <= n; i++)
+	visited[v] = true;
+	cnt++;
+	for(int i=0;i<arr[v].size();i++)
 	{
-		if (visit[i] || computer[v][i] == 0)
+		if(!visited[arr[v][i]])
 		{
-			continue;
+			DFS(arr[v][i]);
 		}
-		cnt++;
-		DFS(i);
 	}
 }
 
 int main()
 {
-	
+	int n, m;
 	cin >> n;
-	
-	cin >> k;
-	for (int i = 0; i < k; i++)
+	cin >> m;
+	for(int i=0;i<m;i++)
 	{
 		int u, v;
 		cin >> u >> v;
-		computer[u][v] = computer[v][u] = 1;
+		arr[u].push_back(v);
+		arr[v].push_back(u);
 	}
 
 	DFS(1);
-	cout << cnt;
+	cout << cnt-1;
+
 	return 0;
 }
