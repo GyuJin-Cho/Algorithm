@@ -1,48 +1,49 @@
 #include<iostream>
-#include<queue>
-#include<string>
+#include<vector>
+#include<map>
 #include<algorithm>
+#include<cmath>
+#include<string>
+#include<queue>
+#include<stack>
+#include<set>
+#include<unordered_map>
+#include<unordered_set>
+#include<memory>
+#include<cstring>
 
 using namespace std;
+int N, G;
 
-void BFS(int n, int t)
+void BFS()
 {
-	queue<pair<long long,int>> q;
-	q.push(make_pair(n,1));
-	int answer = 0;
-	while (!q.empty())
+	queue<pair<long long, long long>> q;
+	q.push({ N,0 });
+	while(!q.empty())
 	{
-		long long d = q.front().first;
-		int cur = q.front().second;
-		if (d == t)
-		{
-			answer = cur;
-			break;
-		}
+		pair<long long, long long> p = q.front();
 		q.pop();
-
-		if (d > t)
+		if(p.first>G)
+		{
 			continue;
-		q.push(make_pair(d * 2, cur + 1));
-		string a = to_string(d);
-		a += "1";
-		q.push(make_pair(stoll(a), cur + 1));
+		}
+		if(p.first==G)
+		{
+			cout << p.second + 1;
+			return;
+		}
+		string s = to_string(p.first);
+		q.push({ p.first * 2,p.second + 1 });
+		s += "1";
+		q.push({ stoll(s),p.second + 1 });
 	}
-	if (q.empty())
-	{
-		cout << -1 << endl;
-	}
-	else
-	{
-		cout << answer;
-	}
+
+	cout << -1;
 }
 
 int main()
 {
-	int n, t;
-	cin >> n >> t;
-	BFS(n, t);
-
+	cin >> N >> G;
+	BFS();
 	return 0;
 }
