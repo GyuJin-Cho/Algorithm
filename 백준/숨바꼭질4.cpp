@@ -1,6 +1,16 @@
 #include<iostream>
-#include<queue>
 #include<vector>
+#include<map>
+#include<algorithm>
+#include<cmath>
+#include<string>
+#include<queue>
+#include<stack>
+#include<set>
+#include<unordered_map>
+#include<unordered_set>
+#include<memory>
+#include<cstring>
 #pragma warning(disable:4996)
 using namespace std;
 
@@ -8,7 +18,6 @@ struct node
 {
 	int Position;
 	int ans;
-	
 };
 
 int dx[] = { 1,-1 };
@@ -18,18 +27,18 @@ vector<int> path;
 int BFS(const int& N, const int& K)
 {
 	queue<node> q;
-	vector<int> v;
 	q.push({ N,0 });
 	visit[N] = true;
-	while (!q.empty())
+	while(!q.empty())
 	{
 		node n = q.front();
 		q.pop();
-		if (n.Position == K)
+
+		if(n.Position==K)
 		{
-			int d=n.Position;
+			int d = n.Position;
 			path.push_back(d);
-			while (d!=N)
+;			while(d!=N)
 			{
 				path.push_back(Direction[d]);
 				d = Direction[d];
@@ -37,34 +46,30 @@ int BFS(const int& N, const int& K)
 			return n.ans;
 		}
 
-		if (2 * n.Position < 100001)
+		for(int i=0;i<3;i++)
 		{
-			if (!visit[2 * n.Position])
+			if(i==2)
 			{
-				q.push({2 * n.Position,n.ans + 1 });
-				Direction[2*n.Position] = n.Position;
-				visit[2 * n.Position] = true;
+				int nx = n.Position * 2;
+				if(nx < 100001&&!visit[nx])
+				{
+					q.push({ nx,n.ans + 1 });
+					Direction[nx] = n.Position;
+					visit[nx] = true;
+				}
+				continue;
+			}
+			int nx = n.Position + dx[i];
+			if(nx >= 0&&nx < 100001)
+			{
+				if(!visit[nx])
+				{
+					q.push({ nx,n.ans + 1 });
+					Direction[nx] = n.Position;
+					visit[nx] = true;
+				}
 			}
 		}
-		if (n.Position - 1 >= 0)
-		{
-			if (!visit[n.Position - 1])
-			{
-				q.push({ n.Position - 1,n.ans + 1 });
-				Direction[n.Position - 1] = n.Position;
-				visit[n.Position - 1] = true;
-			}
-		}
-		if (n.Position + 1 < 100001)
-		{
-			if (!visit[n.Position + 1])
-			{
-				q.push({ n.Position + 1,n.ans + 1 });
-				Direction[n.Position+1] = n.Position;
-				visit[n.Position + 1] = true;
-			}
-		}
-		
 	}
 }
 
