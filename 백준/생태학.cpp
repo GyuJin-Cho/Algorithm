@@ -25,7 +25,7 @@ int main()
 		cnt++;
 	}
 
-	for(auto i : m)
+	for(const auto& i : m)
 	{
 		cout << i.first;
 		printf(" %.4f\n", (i.second * 100.0f / cnt));
