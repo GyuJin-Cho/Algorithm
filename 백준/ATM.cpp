@@ -1,6 +1,17 @@
 #include<iostream>
-#include<algorithm>
 #include<vector>
+#include<map>
+#include<algorithm>
+#include<cmath>
+#include<string>
+#include<queue>
+#include<stack>
+#include<set>
+#include<unordered_map>
+#include<unordered_set>
+#include<memory>
+#include<cstring>
+
 using namespace std;
 
 int main()
@@ -9,18 +20,20 @@ int main()
 	cin >> n;
 	vector<int> v(n);
 	for (int i = 0; i < n; i++)
-	{
 		cin >> v[i];
-	}
 	sort(v.begin(), v.end());
-	int answer = 0;
-	for (int i = 0; i < v.size(); i++)
+	int sum = 0;
+	vector<int>ans;
+	for (const auto& i : v)
 	{
-		for (int j = i; j >= 0; j--)
-		{
-			answer += v[j];
-		}
+		sum += i;
+		ans.push_back(sum);
 	}
-	cout << answer << endl;
+	sum = 0;
+	for (const auto& i : ans)
+	{
+		sum += i;
+	}
+	cout << sum;
 	return 0;
 }
