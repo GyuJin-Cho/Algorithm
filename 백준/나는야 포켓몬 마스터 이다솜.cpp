@@ -1,47 +1,43 @@
 #include<iostream>
-#include<string>
 #include<vector>
+#include<map>
+#include<algorithm>
+#include<cmath>
+#include<string>
+#include<queue>
+#include<stack>
+#include<set>
 #include<unordered_map>
+#include<unordered_set>
+#include<memory>
+#include<cstring>
+
 using namespace std;
 
 int main()
 {
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-	cout.tie(NULL);
-
+	ios::sync_with_stdio(false);
+	cin.tie(0);
 	int N, M;
 	cin >> N >> M;
-	unordered_map<string, int> m1;
-	unordered_map<int, string> m2;
-	if (N == 0 || M == 0)
-		return 0;
-	if (N > 100000 || M > 100000)
-		return 0;
+	unordered_map<int, string> um1;
+	unordered_map<string, int> um2;
 	for (int i = 1; i <= N; i++)
 	{
-		string a;
-		cin >> a;
-		m1.insert({ a,i });
+		string s;
+		cin >> s;
+		um1[i] = s;
+		um2[s] = i;
 	}
 
-	for (auto i : m1)
-	{
-		m2.insert({ i.second,i.first });
-	}
-	
 	for (int i = 0; i < M; i++)
 	{
-		string a="";
-		cin >> a;
-		if (a[0]<'A')
-		{
-			cout << m2[stoi(a)] << '\n';
-		}
+		string s;
+		cin >> s;
+		if (s[0] < 'A')
+			cout << um1[stoi(s)] << '\n';
 		else
-		{
-			cout << m1[a] << '\n';
-		}
+			cout << um2[s] << '\n';
 	}
 
 	return 0;
