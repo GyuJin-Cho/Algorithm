@@ -16,34 +16,34 @@ using namespace std;
 vector<int> arr[101];
 bool visited[101];
 int cnt;
-void DFS(int v)
+
+void DFS(int Depth)
 {
-	visited[v] = true;
+	visited[Depth] = true;
 	cnt++;
-	for(int i=0;i<arr[v].size();i++)
+	for (int i = 0; i < arr[Depth].size(); i++)
 	{
-		if(!visited[arr[v][i]])
+		if (!visited[arr[Depth][i]])
 		{
-			DFS(arr[v][i]);
+			DFS(arr[Depth][i]);
 		}
 	}
 }
 
 int main()
 {
-	int n, m;
-	cin >> n;
-	cin >> m;
-	for(int i=0;i<m;i++)
+	int N, M;
+	cin >> N >> M;
+
+	for (int i = 0; i < M; i++)
 	{
-		int u, v;
-		cin >> u >> v;
-		arr[u].push_back(v);
-		arr[v].push_back(u);
+		int s, e;
+		cin >> s >> e;
+		arr[s].push_back(e);
+		arr[e].push_back(s);
 	}
 
 	DFS(1);
-	cout << cnt-1;
-
+	cout << cnt - 1;
 	return 0;
 }
