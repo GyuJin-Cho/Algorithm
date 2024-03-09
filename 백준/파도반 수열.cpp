@@ -5,21 +5,19 @@ int main()
 {
 	cin.tie(0);
 	cout.tie(0);
-	int N;
-	cin >> N;
 	p[1] = 1;
 	p[2] = 1;
 	p[3] = 1;
-	for (int i = 0; i < N; i++)
+	for (int i = 3; i < 101; i++)
 	{
-		int T;
-		cin >> T;
-		
-		for (int j = 3; j <= T; j++)
-		{
-			p[j] = p[j - 2] + p[j - 3];
-		}
-		cout << p[T]<<'\n';
-		
+		p[i] = p[i - 3] + p[i - 2];
+	}
+	int T;
+	cin >> T;
+	int n;
+	while (T--)
+	{
+		cin >> n;
+		cout << p[n] << '\n';
 	}
 } 
