@@ -16,24 +16,28 @@ using namespace std;
 
 int main()
 {
+	ios::sync_with_stdio(false);
+	cin.tie(0);
 	int n;
 	cin >> n;
 	vector<int> v(n);
 	for (int i = 0; i < n; i++)
 		cin >> v[i];
+
 	sort(v.begin(), v.end());
 	int sum = 0;
-	vector<int>ans;
-	for (const auto& i : v)
+	vector<int> v1;
+	for (int i = 0; i < n; i++)
 	{
-		sum += i;
-		ans.push_back(sum);
+		sum += v[i];
+		v1.push_back(sum);
 	}
-	sum = 0;
-	for (const auto& i : ans)
+
+	int ans = 0;
+	for (int i = 0; i < n; i++)
 	{
-		sum += i;
+		ans += v1[i];
 	}
-	cout << sum;
+	cout << ans;
 	return 0;
 }
