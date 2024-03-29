@@ -32,26 +32,25 @@ public:
 
 void BFS(int y, int x)
 {
-	visit[y][x] = true;
 	queue<node> q;
-	q.push(node(y,x,0));
-
-	while(!q.empty())
+	q.push(node(y, x, 1));
+	visit[y][x] = true;
+	while (!q.empty())
 	{
 		node no = q.front();
 		q.pop();
-		if(no.y==n-1&&no.x==m-1)
+		if (no.y == n - 1 && no.x == m - 1)
 		{
-			cout << no.cnt+1;
+			cout << no.cnt;
 			return;
 		}
-		for(int i=0;i<4;i++)
+		for (int i = 0; i < 4; i++)
 		{
-			int ny = dy[i] + no.y;
-			int nx = dx[i] + no.x;
-			if(ny<n&&nx<m&&ny>=0&&nx>=0)
+			int ny = no.y + dy[i];
+			int nx = no.x + dx[i];
+			if (ny >= 0 && nx >= 0 && ny < n && nx < m)
 			{
-				if(!visit[ny][nx]&&arr[ny][nx]==1)
+				if (!visit[ny][nx]&&arr[ny][nx]==1)
 				{
 					q.push(node(ny, nx, no.cnt + 1));
 					visit[ny][nx] = true;
@@ -59,7 +58,6 @@ void BFS(int y, int x)
 			}
 		}
 	}
-
 }
 
 int main()
