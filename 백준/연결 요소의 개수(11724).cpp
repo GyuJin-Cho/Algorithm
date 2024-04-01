@@ -13,18 +13,18 @@
 #include<cstring>
 
 using namespace std;
-vector<int> arr[(1001 * (1001 - 1) / 2)];
+constexpr int MAX = (1001 * (1001 - 1) / 2);
+vector<int> arr[MAX];
 
-bool visit[(1001 * (1001 - 1) / 2)];
+bool visit[MAX];
 
 void DFS(int num)
 {
 	visit[num] = true;
-	for(int i=0;i<arr[num].size();i++)
+	for (int i = 0; i < arr[num].size(); i++)
 	{
-		if(!visit[arr[num][i]])
+		if (!visit[arr[num][i]])
 		{
-			visit[arr[num][i]];
 			DFS(arr[num][i]);
 		}
 	}
@@ -36,24 +36,23 @@ int main()
 	cin.tie(0);
 	cout.tie(0);
 	int n, m;
-	cin >> n >> m;
 	int x, y;
-	if(m==0)
+	int ans = 0;
+	cin >> n >> m;
+	if (m == 0)
 	{
 		cout << n;
 		return 0;
 	}
-	for(int i=0;i<m;i++)
+	for (int i = 0; i < m; i++)
 	{
 		cin >> x >> y;
 		arr[x].push_back(y);
 		arr[y].push_back(x);
 	}
-
-	int ans = 0;
-	for(int i=1;i<=n;i++)
+	for (int i = 1; i <= n; i++)
 	{
-		if(!visit[i])
+		if (!visit[i])
 		{
 			DFS(i);
 			ans++;
