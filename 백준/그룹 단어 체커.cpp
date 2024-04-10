@@ -1,39 +1,50 @@
 #include<iostream>
+#include<vector>
 #include<map>
+#include<algorithm>
+#include<cmath>
 #include<string>
+#include<queue>
+#include<stack>
+#include<set>
+#include<unordered_map>
+#include<unordered_set>
+#include<memory>
+#include<cstring>
 
 using namespace std;
 
 int main()
 {
-	int n;
-	cin >> n;
-	int cnt = 0;
-	for(int i=0;i<n;i++)
+	int T;
+	cin >> T;
+	string s;
+	int ans = 0;
+	while (T--)
 	{
-		bool check = true;
-		string a;
-		cin >> a;
+		cin >> s;
 		map<char, int> m;
-		for (int j = 0; j < a.size();j++)
+		bool ch = true;
+		for (int i = 0; i < s.length(); i++)
 		{
-			if(m[a[j]]==0)
-			{
-				m[a[j]]++;
-			}
+			if (m[s[i]] == 0)
+				m[s[i]]++;
 			else
 			{
-				if(a[j]!=a[j-1])
+				if (s[i - 1] == s[i])
 				{
-					check = false;
+					continue;
+				}
+				else
+				{
+					ch = false;
 					break;
 				}
 			}
 		}
-		if (!check)
-			continue;
-		cnt++;
+		if (ch)
+			ans++;
 	}
-	cout << cnt;
+	cout << ans;
 	return 0;
 }
