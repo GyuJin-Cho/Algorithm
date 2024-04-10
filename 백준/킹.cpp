@@ -37,23 +37,32 @@ int main(void)
         cin >> direction;
 
         if (!direction.compare("R")) dir = 0;
-        else if (!direction.compare("L")) dir = 1;
-        else if (!direction.compare("B")) dir = 2;
-        else if (!direction.compare("T")) dir = 3;
-        else if (!direction.compare("RT")) dir = 4;
-        else if (!direction.compare("LT")) dir = 5;
-        else if (!direction.compare("RB")) dir = 6;
-        else if (!direction.compare("LB")) dir = 7;
+        else if (!direction.compare("L")) 
+            dir = 1;
+        else if (!direction.compare("B")) 
+            dir = 2;
+        else if (!direction.compare("T")) 
+            dir = 3;
+        else if (!direction.compare("RT")) 
+            dir = 4;
+        else if (!direction.compare("LT")) 
+            dir = 5;
+        else if (!direction.compare("RB")) 
+            dir = 6;
+        else if (!direction.compare("LB"))
+            dir = 7;
 
         int kmx = kx + dx[dir];
         int kmy = ky + dy[dir];
 
-        if (kmx < 0 || kmx >= SIZE || kmy < 0 || kmy >= SIZE) continue;
+        if (kmx < 0 || kmx >= SIZE || kmy < 0 || kmy >= SIZE)
+            continue;
         if (kmx == sx && kmy == sy)
         {
             int smx = sx + dx[dir];
             int smy = sy + dy[dir];
-            if (smx < 0 || smx >= SIZE || smy < 0 || smy >= SIZE) continue;
+            if (smx < 0 || smx >= SIZE || smy < 0 || smy >= SIZE)
+                continue;
             sx = smx; sy = smy;
         }
         kx = kmx; ky = kmy;
