@@ -1,41 +1,45 @@
 #include<iostream>
-#include<string>
 #include<vector>
+#include<map>
+#include<algorithm>
+#include<cmath>
+#include<string>
+#include<queue>
 #include<stack>
+#include<set>
+#include<unordered_map>
+#include<unordered_set>
+#include<memory>
+#include<cstring>
+
 using namespace std;
 
 int main()
 {
-	long long N;
-	cin >> N;
-	stack<long long>s;
-	for (long long i = 0; i < N; i++)
+	int n;
+	stack<int>s;
+	cin >> n;
+	for (int i = 0; i < n; i++)
 	{
-		long long a;
+		int a;
 		cin >> a;
-		if (a == 0&&s.size()>=1)
+		if (a == 0)
 		{
-			s.pop();
+			if (!s.empty())
+			{
+				s.pop();
+			}
+			continue;
 		}
-		else
-		{
-			s.push(a);
-		}
+		s.push(a);
 	}
-
-	long long sum = 0;
-
-	if (s.size() == 0)
-		cout << sum;
-	else
+	int sum = 0;
+	while (!s.empty())
 	{
-		while (!s.empty())
-		{
-			sum += s.top();
-			s.pop();
-		}
-		cout << sum;
+		sum += s.top();
+		s.pop();
 	}
+	cout << sum;
 
 	return 0;
 }
