@@ -6,50 +6,43 @@ using namespace std;
 
 int main()
 {
+	ios::sync_with_stdio(false);
 	cin.tie(0);
-	cout.tie(0);
-	int N, W, L;
-	cin >> N >> W >> L;
-	vector<int> Truck;
-	for (int i = 0; i < N; i++)
-	{
-		int a;
-		cin >> a;
-		Truck.push_back(a);
-	}
+	int n, w, l;
+	cin >> n >> w >> l;
+	vector<int> Truck(n);
+	for (int i = 0; i < n; i++)
+		cin >> Truck[i];
 
-	int count = 0;
+	int ans = 0;
 	int sum = 0;
-	vector<int> v;
+	vector<int> Bridgh;
 	int TruckCheck = 0;
 	while (1)
 	{
-		count++;
-		if (v.size() == W)
+		ans++;
+		if (Bridgh.size() == w)
 		{
-			sum -= v[0];
-			v.erase(v.begin());
+			sum -= Bridgh[0];
+			Bridgh.erase(Bridgh.begin());
 		}
 
-		if (sum + Truck[TruckCheck] <= L)
+		if (sum + Truck[TruckCheck] <= l)
 		{
 			if (TruckCheck == Truck.size() - 1)
 			{
-				count += W;
+				ans += w;
 				break;
 			}
-
-			v.push_back(Truck[TruckCheck]);
+			Bridgh.push_back(Truck[TruckCheck]);
 			sum += Truck[TruckCheck];
 			TruckCheck++;
 		}
 		else
 		{
-			v.push_back(0);
+			Bridgh.push_back(0);
 		}
-
 	}
-	cout << count;
-
+	cout << ans;
 	return 0;
 }
