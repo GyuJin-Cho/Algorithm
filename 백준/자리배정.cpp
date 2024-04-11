@@ -31,44 +31,42 @@ int main()
         cout << "0" << endl;
         return 0;
     }
-    else 
+
+    while (1)
     {
 
-        while (1)
+        for (int i = 0; i < R; i++)
         {
-            
-            for (int i = 0; i < R; i++)
+            start[1] += swit;
+            count++;
+
+            if (count == H)
             {
-                start[1] += swit;
-                count++;
-
-                if (count == H) 
-                {
-                    cout << start[0] << " " << start[1] << endl;
-                    return 0;
-                }
-
+                cout << start[0] << " " << start[1] << endl;
+                return 0;
             }
-
-            C--;
-
-            for (int i = 0; i < C; i++)
-            {
-                start[0] += swit;
-                count++;
-                if (count == H)
-                {
-                    cout << start[0] << " " << start[1] << endl;
-                    return 0;
-                }
-            }
-
-            R--;
-            swit *= -1;
 
         }
 
+        C--;
+
+        for (int i = 0; i < C; i++)
+        {
+            start[0] += swit;
+            count++;
+            if (count == H)
+            {
+                cout << start[0] << " " << start[1] << endl;
+                return 0;
+            }
+        }
+
+        R--;
+        swit *= -1;
+
     }
+
+
 
     return 0;
 }
