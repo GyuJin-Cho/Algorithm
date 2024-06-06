@@ -13,92 +13,96 @@
 #include<cstring>
 
 using namespace std;
+
 class Trie
 {
-public:
+private:
+	Trie* Node[10];
 	bool Finish;
-	Trie* node[10];
-	Trie()
-	{
-		Finish = false;
-		for (int i = 0; i < 10; i++)
-			node[i] = nullptr;
-	}
-
-	void insert(const string& str,int idx)
-	{
-		if (idx == str.length())
-		{
-			Finish = true;
-			return;
-		}
-			
-		if (node[str[idx] - 48] == nullptr)
-			node[str[idx] - 48] = new Trie();
-		node[str[idx] - 48]->insert(str, idx + 1);
-	}
-
-	bool find(const string& str, int idx)
-	{
-		if (idx == str.length())
-			return false;
-
-		if (Finish)
-			return true;
-
-		if (node[str[idx] - 48] == nullptr)
-			return false;
-
-		return node[str[idx] - 48]->find(str, idx + 1);
-	}
-
-	void clear()
-	{
-		for(int i=0;i<10;i++)
-		{
-			if(node[i])
-			{
-				node[i]->clear();
-				delete node[i];
-			}
-		}
-	}
+public:
+	Trie();
+	void Insert(const string& s, int idx);
+	bool Find(const string& s, int idx);
+	void Clear();
 };
+Trie::Trie()
+{
+	Finish = false;
+	for (int i = 0; i < 10; i++)
+		Node[i] = nullptr;
+}
+
+void Trie::Insert(const string& s, int idx)
+{
+	if (s.length() == idx)
+	{
+		Finish = true;
+		return;
+	}
+
+	if (!Node[s[idx] - '0'])
+		Node[s[idx] - '0'] = new Trie();
+	Node[s[idx] - '0']->Insert(s, idx + 1);
+}
+
+bool Trie::Find(const string& s, int idx)
+{
+	if (s.length() == idx)
+		return false;
+	if (Finish)
+		return true;
+	if (!Node[s[idx] - '0'])
+		return false;
+	return Node[s[idx] - '0']->Find(s, idx + 1);
+}
+
+void Trie::Clear()
+{
+	for (int i = 0; i < 10; i++)
+	{
+		if (Node[i])
+		{
+			Node[i]->Clear();
+			delete Node[i];
+		}
+	}
+}
 
 int main()
 {
 	ios::sync_with_stdio(false);
 	cin.tie(0);
-
-	int T,n;
+	int T, N;
 	cin >> T;
-	while(T--)
+	while (T--)
 	{
-		cin >> n;
+		cin >> N;
+		string s;
 		Trie* root = new Trie();
-		string str;
 		vector<string> v;
-		for(int i=0;i<n;i++)
+		for (int i = 0; i < N; i++)
 		{
-			cin >> str;
-			v.push_back(str);
-			root->insert(str, 0);
+			cin >> s;
+			v.push_back(s);
+			root->Insert(s,0);
 		}
 		int i;
-		for(i=0;i<v.size();i++)
+		for (i = 0; i < v.size(); i++)
 		{
-			if(root->find(v[i],0))
+			if (root->Find(v[i], 0))
 			{
 				cout << "NO" << '\n';
 				break;
 			}
 		}
-		if (i == n)
-			cout << "YES" << '\n';
 
-		root->clear();
+		if(i==N)
+			cout << "YES" << '\n';
+		root->Clear();
 		delete root;
 	}
 
 	return 0;
 }
+
+
