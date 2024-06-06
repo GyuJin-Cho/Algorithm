@@ -17,33 +17,33 @@ vector<int> arr[10001];
 bool visit[10001];
 int n, m, v;
 
-void DFS(int num)
+void DFS(int v)
 {
-	cout << num << ' ';
-	visit[num] = true;
-	for(int i=0;i<arr[num].size();i++)
+	visit[v] = true;
+	cout << v << ' ';
+	for (int i = 0; i < arr[v].size(); i++)
 	{
-		if(!visit[arr[num][i]])
-			DFS(arr[num][i]);
+		if(!visit[arr[v][i]])
+			DFS(arr[v][i]);
 	}
 }
 
-void BFS(int num)
+void BFS(int v)
 {
-	visit[num] = true;
+	visit[v] = true;
 	queue<int> q;
-	q.push(num);
-	while(!q.empty())
+	q.push(v);
+	while (!q.empty())
 	{
-		int now = q.front();
-		cout << now << ' ';
+		int n = q.front();
+		cout << n << ' ';
 		q.pop();
-		for(int i=0;i<arr[now].size();i++)
+		for (int i = 0; i < arr[n].size(); i++)
 		{
-			if(!visit[arr[now][i]])
+			if (!visit[arr[n][i]])
 			{
-				q.push(arr[now][i]);
-				visit[arr[now][i]] = true;
+				q.push(arr[n][i]);
+				visit[arr[n][i]] = true;
 			}
 		}
 	}
