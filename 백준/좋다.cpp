@@ -16,34 +16,41 @@ using namespace std;
 
 int main()
 {
+	ios::sync_with_stdio(false);
+	cin.tie(0);
+	cout.tie(0);
+
 	int n;
 	cin >> n;
-	vector<int> v(n);
+	vector<int> arr(n);
 	for (int i = 0; i < n; i++)
-		cin >> v[i];
-	sort(v.begin(), v.end());
+		cin >> arr[i];
+
+	sort(arr.begin(), arr.end());
+
 	int ans = 0;
-	int val;
-	for (int i = 0; i < n; i++)
+
+	for (int k = 0; k < n; k++)
 	{
-		val = v[i];
-		int l = 0, r = n - 1, sum;
+		int find = arr[k];
+		int l = 0;
+		int r = n - 1;
+
 		while (l < r)
 		{
-			sum = v[l] + v[r];
-			if (sum == val)
+			if (arr[l] + arr[r] == find)
 			{
-				if (l != i && r != i)
+				if (l != k && r != k)
 				{
 					ans++;
 					break;
 				}
-				else if (l == i)
+				else if (l == k)
 					l++;
-				else if (r == i)
+				else
 					r--;
 			}
-			else if (sum < val)
+			else if (arr[l] + arr[r] < find)
 				l++;
 			else
 				r--;
