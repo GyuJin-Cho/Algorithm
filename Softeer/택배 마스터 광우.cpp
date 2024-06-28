@@ -13,34 +13,36 @@
 #include<cstring>
 
 using namespace std;
-
+int n, m, k;
+int ans = 2e9;
 int main()
 {
-	int n, m, k;
+	ios::sync_with_stdio(false);
+	cin.tie(0);
 	cin >> n >> m >> k;
-	vector<int> rail(n, 0);
+	vector<int> v(n, 0);
 	for (int i = 0; i < n; i++)
-		cin >> rail[i];
-	int ans = 1e9;
+		cin >> v[i];
+	sort(v.begin(), v.end());
 	do
 	{
-		int cnt = 0;
-		int sum = 0;
-		int tmp = 0;
-		int idx = 0;
-		while (cnt < k)
+		int cur = 0;
+		int work = 0;
+		for (int i = 0; i < k; i++)
 		{
-			tmp = 0;
-			while (tmp + rail[idx] <= m)
+			int tmp = 0;
+			while (1)
 			{
-				tmp += rail[idx];
-				sum += rail[idx];
-				idx = (idx + 1) % n;
+				tmp += v[cur];
+				if (tmp > m)
+					break;
+				work += v[cur];
+				cur = (cur + 1) % n;
 			}
-			cnt++;
 		}
-		ans = min(sum, ans);
-	} while (next_permutation(rail.begin(), rail.end()));
+		ans = min(ans, work);
+
+	} while (next_permutation(v.begin(), v.end()));
 	cout << ans;
 	return 0;
 }
