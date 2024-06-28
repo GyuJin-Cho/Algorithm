@@ -4,63 +4,59 @@
 #include <map>
 using namespace std;
 
-char str[1000];
-
 struct Node
 {
-	char Left;
 	char Right;
-
+	char Left;
 };
-map<char, Node> Map;
-void Pre(char node)
+map<char, Node> m;
+
+void Pre(char Node)
 {
-	
-	if (node == '.')
+	if (Node == '.')
 		return;
-	cout << node;
-	Pre(Map[node].Left);
-	Pre(Map[node].Right);
+	cout << Node;
+	Pre(m[Node].Left);
+	Pre(m[Node].Right);
 }
 
-void In(char node)
+void Mid(char Node)
 {
-
-	if (node == '.')
+	if (Node == '.')
 		return;
-	In(Map[node].Left);
-	cout << node;
-	In(Map[node].Right);
+	Mid(m[Node].Left);
+	cout << Node;
+	Mid(m[Node].Right);
 }
 
-void Post(char node)
+void Post(char Node)
 {
-
-	if (node == '.')
+	if (Node == '.')
 		return;
-	Post(Map[node].Left);
-	Post(Map[node].Right);
-	cout << node;
+	Post(m[Node].Left);
+	Post(m[Node].Right);
+	cout << Node;
 }
+
 int main()
 {
-	int N;
-	cin >> N;
+	int n;
+	cin >> n;
 	string s;
 	cin.ignore();
-	for(int i=0;i<N;i++)
+	for (int i = 0; i < n; i++)
 	{
 		getline(cin, s);
-		Map[s[0]].Left = s[2];
-		Map[s[0]].Right = s[4];
+		m[s[0]].Left = s[2];
+		m[s[0]].Right = s[4];
 	}
+
 	Pre('A');
 	cout << '\n';
-
-	In('A');
+	Mid('A');
 	cout << '\n';
-
 	Post('A');
 	cout << '\n';
+
 	return 0;
 }
