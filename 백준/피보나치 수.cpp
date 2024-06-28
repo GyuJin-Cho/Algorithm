@@ -1,21 +1,30 @@
 #include<iostream>
+#include<vector>
+#include<map>
+#include<algorithm>
+#include<cmath>
+#include<string>
+#include<queue>
+#include<stack>
+#include<set>
+#include<unordered_map>
+#include<unordered_set>
+#include<memory>
+#include<cstring>
 
 using namespace std;
+int dp[46];
 
 int main()
 {
-    long long N;
-    cin>>N;
-    long long result[45];
-    
-    result[0] = 0;
-    result[1] = 1;
-    
-    for(int i=2;i<=N;i++)
-    {
-        result[i] = result[i-1]+result[i-2];
-    }
-    
-    cout<<result[N];
-    return 0;
+	int n;
+	cin >> n;
+	dp[0] = 0;
+	dp[1] = 1;
+	for (int i = 2; i <= n; i++)
+	{
+		dp[i] = dp[i - 1] + dp[i - 2];
+	}
+	cout << dp[n];
+	return 0;
 }
