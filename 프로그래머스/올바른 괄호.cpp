@@ -1,36 +1,40 @@
-#include<string>
-#include <iostream>
+#include <string>
 #include <stack>
+#include <iostream>
 using namespace std;
 
 bool solution(string s)
 {
     stack<char> st;
-
-    for(int i=0;i<s.length();i++)
+    for (int i = 0; i < s.length(); i++)
     {
-        if (s[i] == '(')
-            st.push('(');
-        else
+        if (st.empty())
         {
-	        if(!st.empty()&&st.top()=='(')
-	        {
+            st.push(s[i]);
+        }
+        else if (st.top() == '(')
+        {
+            if (s[i] == ')')
+            {
                 st.pop();
-	        }
+            }
             else
             {
-                st.push(')');
+                st.push(s[i]);
             }
         }
+        else
+        {
+            st.push(s[i]);
+        }
     }
-    if (st.empty())
-        return true;
-    else
-        return false;
+
+    return st.empty();
 }
 
 int main()
 {
-    cout << solution(")()(");
+    cout << solution("(()(");
+
     return 0;
 }
