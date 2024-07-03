@@ -1,32 +1,32 @@
-#include <algorithm>
-#include<iostream>
+#include <iostream>
 #include <string>
 #include <vector>
 
 using namespace std;
 int answer = 0;
 
-void dfs(vector<int> number,int target,int sum, int index)
+void DFS(const vector<int>& numbers, int idx, int target,int sum)
 {
-	if(number.size()==index)
-	{
-        if (sum == target)
+    if (numbers.size() == idx)
+    {
+        if (target == sum)
             answer++;
         return;
-	}
-    dfs(number, target, sum + number[index], index+1);
-    dfs(number, target, sum - number[index], index+1);
+    }
+    DFS(numbers, idx + 1, target, sum + numbers[idx]);
+    DFS(numbers, idx + 1, target, sum - numbers[idx]);
 }
+
 int solution(vector<int> numbers, int target)
 {
-    dfs(numbers, target, 0, 0);
+    DFS(numbers, 0, target,0);
     return answer;
 }
 
 int main()
 {
-    vector<int> a = { 1,1,1,1,1 };
-    int target = 3;
-    cout << solution(a, target);
+    vector<int> v = { 4,1,2,1 };
+    cout << solution(v, 4);
+
     return 0;
 }
