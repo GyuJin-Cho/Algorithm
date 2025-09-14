@@ -18,7 +18,8 @@ int solution(vector<vector<int>> info, int n, int m)
 
         for (int b = 0; b < m; ++b)
         {
-            if (dp[b] == INF) continue;
+            if (dp[b] == INF)
+                continue;
             int curA = dp[b];
 
             int newA = curA + a_cost;
@@ -37,10 +38,12 @@ int solution(vector<vector<int>> info, int n, int m)
     }
 
     int ans = INF;
-    for (int b = 0; b < m; ++b) {
+    for (int b = 0; b < m; ++b)
+    {
         if (dp[b] < INF) ans = min(ans, dp[b]);
     }
-    if (ans == INF) return -1;
+    if (ans == INF)
+        return -1;
     return ans;
 }
 
