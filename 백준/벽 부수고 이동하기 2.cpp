@@ -1,85 +1,77 @@
-#include<iostream>
-#include<vector>
-#include<map>
-#include<algorithm>
-#include<cmath>
-#include<string>
+﻿#include<iostream>
 #include<queue>
-#include<stack>
-#include<set>
-#include<unordered_map>
-#include<unordered_set>
-#include<memory>
+#include<vector>
 
 using namespace std;
 
-struct node
+int N,M,K;
+bool visited[1001][1001][11];
+int arr[1001][1001];
+int dy[] = {0,1,0,-1};
+int dx[] = {1,0,-1,0};
+struct Node
 {
-	int y;
-	int x;
-	int cnt;
-	int Breaking;
+    int y;
+    int x;
+    int Crash;
+    int cnt;
 };
-int Map[1001][1001];
-bool visit[1001][1001][11];
-int dy[] = { 0,1,0,-1 };
-int dx[] = { 1,0,-1,0 };
-int N, M,K;
+
 void BFS()
 {
-	queue<node> q;
-	q.push({ 0,0,1 ,0 });
-	visit[0][0][0] = true;
-	while (!q.empty())
-	{
-		node n = q.front();
-		q.pop();
-		if (n.y == N - 1 && n.x == M - 1)
-		{
-			cout << n.cnt;
-			return;
-		}
-		for (int i = 0; i < 4; i++)
-		{
-			int ny = n.y + dy[i];
-			int nx = n.x + dx[i];
-			if (ny >= 0 && nx >= 0 && ny < N && nx < M)
-			{
-				if (n.Breaking+1<=K&&Map[ny][nx] == 1&&!visit[ny][nx][n.Breaking])
-				{
+    queue<Node> q;
+    q.push({0,0,0,1});
+    visited[0][0][0] = true;
+    while(!q.empty())
+    {
+        Node temp = q.front();
+        q.pop();
+        if(temp.y + 1 == N && temp.x + 1 == M)
+        {
+            cout<<temp.cnt;
+            return;
+        }
+        for(int i=0;i<4;i++)
+        {
+            int ny = temp.y + dy[i];
+            int nx = temp.x + dx[i];
 
-					q.push({ ny,nx,n.cnt + 1,n.Breaking + 1 });
-					visit[ny][nx][n.Breaking] = true;
-
-				}
-				else if (Map[ny][nx] == 0 && !visit[ny][nx][n.Breaking])
-				{
-					q.push({ ny,nx,n.cnt + 1,n.Breaking });
-					visit[ny][nx][n.Breaking] = true;
-
-				}
-			}
-		}
-	}
-	cout << -1;
+            if(ny>=0 && nx >= 0 && ny < N && nx < M)
+            {
+                if(!visited[ny][nx][temp.Crash] && arr[ny][nx] == 1 && temp.Crash < K)
+                {
+                    q.push({ny,nx,temp.Crash + 1,temp.cnt+1});
+                    visited[ny][nx][temp.Crash] = true;
+                }
+                else if(!visited[ny][nx][temp.Crash] && arr[ny][nx] == 0)
+                {
+                    q.push({ny,nx,temp.Crash,temp.cnt+1});
+                    visited[ny][nx][temp.Crash] = true;
+                }
+            }
+        }
+    }
+    cout<<-1;
 }
+
 int main()
 {
-	ios::sync_with_stdio(false);
-	cin.tie(NULL);
-	cout.tie(NULL);
-	cin >> N >> M>>K;
+    cin.sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
 
-	for (int i = 0; i < N; i++)
-	{
-		string s;
-		cin >> s;
-		for (int j = 0; j < s.size(); j++)
-		{
-			Map[i][j] = s[j] - 48;
-		}
+    cin>>N>>M>>K;
+    string s;
+    for(int i=0;i<N;i++)
+    {
+        cin>>s;
+        for(int j = 0; j < s.length() ; j++)
+        {
+            arr[i][j] = s[j]-48;
+        }
+    }
 
-	}
-	BFS();
-	return 0;
+    BFS();
+    
+    return 0;
 }
