@@ -1,71 +1,66 @@
 #include<iostream>
 #include<vector>
-#include<stack>
 #include<queue>
-
-int map[1001][1001];
-int N, M, V;
-bool visit[1001];
 using namespace std;
 
-void Initbool()
+bool Visited[1001] = { false, };
+int N, M, V;
+int map[1001][1001];
+void InitVisit()
 {
-	for (int i = 0; i < 1001; i++)
-	{
-		visit[i] = false;
-	}
+	for (bool& i : Visited)
+		i = false;
 }
 
-void dfs(int v)
+void DFS(int V)
 {
-	cout << v << ' ';
-	visit[v] = true;
+	cout << V << ' ';
+	Visited[V] = true;
 	for (int i = 1; i <= N; i++)
 	{
-		if (visit[i] || map[v][i] == 0)
-		{
+		if (Visited[i] || map[V][i] == 0)
 			continue;
-		}
-		dfs(i);
+		DFS(i);
 	}
 }
 
-void bfs(int v)
+void BFS(int V)
 {
-	Initbool();
 	queue<int> q;
-	q.push(v);
-	visit[v] = true;
-
+	q.push(V);
+	Visited[V] = true;
 	while (!q.empty())
 	{
-		v = q.front();
-		cout << q.front() << ' ';
+		int v = q.front();
 		q.pop();
+		cout << v << ' ';
 		for (int i = 1; i <= N; i++)
 		{
-			if (visit[i] || map[v][i]==0)
+			if (Visited[i] || map[v][i] == 0)
 				continue;
 			q.push(i);
-			visit[i] = true;
+			Visited[i] = true;
 		}
 	}
-
 }
 
 int main()
 {
-	
 	cin >> N >> M >> V;
+
 	for (int i = 0; i < M; i++)
 	{
 		int u, v;
 		cin >> u >> v;
 		map[u][v] = map[v][u] = 1;
 	}
-	Initbool();
-	dfs(V);
-	cout << endl;
-	bfs(V);
+
+	InitVisit();
+
+	DFS(V);
+	cout << "\n";
+	InitVisit();
+	BFS(V);
+
 	return 0;
 }
