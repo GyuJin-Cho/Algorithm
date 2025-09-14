@@ -1,45 +1,34 @@
 #include<iostream>
-#include<vector>
-#include<map>
-#include<algorithm>
-#include<cmath>
-#include<string>
 #include<queue>
-#include<stack>
-#include<set>
-#include<unordered_map>
-#include<unordered_set>
-#include<memory>
-#include<cstring>
 
 using namespace std;
 
-int n, m;
+int M, N;
+bool Visited[1001][1001] = { false, };
+int Tomato[1001][1001] = { 0, };
 int dy[] = { 0,1,0,-1 };
 int dx[] = { 1,0,-1,0 };
-int arr[1001][1001];
-bool visit[1001][1001];
 int ch[1001][1001];
 queue<pair<int, int>> q;
 void BFS()
 {
-	while(!q.empty())
+	while (!q.empty())
 	{
-		pair<int,int> now = q.front();
+		pair<int, int> Now = q.front();
 		q.pop();
 
-		for(int i=0;i<4;i++)
+		for (int i = 0; i < 4; i++)
 		{
-			int ny = dy[i] + now.first;
-			int nx = dx[i] + now.second;
-			if(ny<m&&nx<n&&ny>=0&&nx>=0)
+			int ny = Now.first + dy[i];
+			int nx = Now.second + dx[i];
+			if (ny >= 0 && nx >= 0 && ny < N && nx < M)
 			{
-				if(!visit[ny][nx]&&arr[ny][nx]>=0)
+				if (Tomato[ny][nx] != -1 && !Visited[ny][nx])
 				{
-					arr[ny][nx] = 1;
-					ch[ny][nx] = ch[now.first][now.second] + 1;
+					Tomato[ny][nx] = 1;
+					ch[ny][nx] = ch[Now.first][Now.second] + 1;
+					Visited[ny][nx] = true;
 					q.push({ ny,nx });
-					visit[ny][nx] = true;
 				}
 			}
 		}
@@ -48,31 +37,38 @@ void BFS()
 
 int main()
 {
-	cin >> n >> m;
-	for (int i = 0; i < m; i++)
-		for (int j = 0; j < n; j++)
+	cin >> M >> N;
+	for (int y = 0; y < N; ++y)
+	{
+		for (int x = 0; x < M; ++x)
 		{
-			cin >> arr[i][j];
-			if (arr[i][j] == 1)
+			cin >> Tomato[y][x];
+			if (Tomato[y][x] == 1)
 			{
-				ch[i][j] = 0;
-				q.push({ i,j });
-				visit[i][j] = true;
+				ch[y][x] = 0;
+				Visited[y][x] = true;
+				q.push({ y,x });
 			}
-				
 		}
+	}
+
 	BFS();
 
-	int ans = -2174000;
-	for (int i = 0; i < m; i++)
-		for (int j = 0; j < n; j++)
+	int ans = -217400000;
+	for (int y = 0; y < N; ++y)
+	{
+		for (int x = 0; x < M; ++x)
 		{
-			if (arr[i][j]==0)
+			if (Tomato[y][x] == 0)
 			{
 				cout << -1;
 				return 0;
 			}
-			ans = max(ans, ch[i][j]);
+			ans = max(ch[y][x], ans);
 		}
+	}
+
 	cout << ans;
+
+	return 0;
 }
