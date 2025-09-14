@@ -1,78 +1,77 @@
-#include<iostream>
+﻿#include<iostream>
 #include<queue>
+#include<vector>
 
 using namespace std;
 
-struct node
+int N,M;
+bool visited[1001][1001][2];
+int arr[1001][1001];
+int dy[] = {0,1,0,-1};
+int dx[] = {1,0,-1,0};
+struct Node
 {
-	int y;
-	int x;
-	int cost;
-	int Breaking;
+    int y;
+    int x;
+    bool Crash;
+    int cnt;
 };
 
-int Map[1001][1001];
-bool ch[1001][1001][2];
-int dx[] = { 1, 0, -1, 0 };
-int dy[] = { 0, 1, 0, -1 };
-void BFS(int& n, int& m)
+void BFS()
 {
-	queue<node> q;
-	q.push({ 1,1,1,false });
-	ch[1][1][0] = true;
-	
-	while(!q.empty())
-	{
-		node Node = q.front();
-		q.pop();
-		if(Node.y==n&& Node.x==m)
-		{
-			cout << Node.cost;
-			return;
-		}
+    queue<Node> q;
+    q.push({0,0,false,1});
+    visited[0][0][0] = true;
+    while(!q.empty())
+    {
+        Node temp = q.front();
+        q.pop();
+        if(temp.y + 1 == N && temp.x + 1 == M)
+        {
+            cout<<temp.cnt;
+            return;
+        }
+        for(int i=0;i<4;i++)
+        {
+            int ny = temp.y + dy[i];
+            int nx = temp.x + dx[i];
 
-		for(int i=0;i<4;i++)
-		{
-			int ny = Node.y + dy[i];
-			int nx = Node.x + dx[i];
-
-			if(ny>0&&nx>0&&ny<=n&&nx<=m)
-			{
-				if(Map[ny][nx]==1&&Node.Breaking==0)
-				{
-					
-					q.push({ ny,nx,Node.cost + 1,Node.Breaking+1 });
-					ch[ny][nx][1] = true;
-					
-				}
-				else if(Map[ny][nx]==0&&!ch[ny][nx][Node.Breaking])
-				{
-					q.push({ ny,nx,Node.cost + 1,Node.Breaking });
-					ch[ny][nx][Node.Breaking] = true;
-				
-				}
-			}
-		}
-	}
-	cout << -1;
+            if(ny>=0 && nx >= 0 && ny < N && nx < M)
+            {
+                if(!visited[ny][nx][1] && arr[ny][nx] == 1 && !temp.Crash)
+                {
+                    q.push({ny,nx,true,temp.cnt+1});
+                    visited[ny][nx][1] = true;
+                }
+                else if(!visited[ny][nx][temp.Crash] && arr[ny][nx] == 0)
+                {
+                    q.push({ny,nx,temp.Crash,temp.cnt+1});
+                    visited[ny][nx][temp.Crash] = true;
+                }
+            }
+        }
+    }
+    cout<<-1;
 }
+
 int main()
 {
-	int n, m;
-	cin >> n >> m;
-	string s;
+    cin.sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
 
-	for(int i=1;i<=n;i++)
-	{
-		cin >> s;
-		for(int z=1;z<=s.size();z++)
-		{
-			Map[i][z] = s[z-1] - 48;
+    cin>>N>>M;
+    string s;
+    for(int i=0;i<N;i++)
+    {
+        cin>>s;
+        for(int j = 0; j < s.length() ; j++)
+        {
+            arr[i][j] = s[j]-48;
+        }
+    }
 
-		}
-
-	}
-	
-	BFS(n,m);
-	return 0;
+    BFS();
+    
+    return 0;
 }
