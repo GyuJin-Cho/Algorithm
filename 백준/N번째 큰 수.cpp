@@ -1,25 +1,25 @@
-#include<iostream>
-#include<vector>
-#include<algorithm>
+﻿#include <iostream>
+#include <vector>
+#include <algorithm>
 
 using namespace std;
 
 int main()
 {
-	vector<int> v(10);
-	int T;
-	cin >> T;
+    cin.tie(NULL);
+    cout.tie(NULL);
+    ios_base::sync_with_stdio(false);
+    int n;
+    cin>>n;
 
-	for (int i = 0; i < T; i++)
-	{
-		for(int j=0;j<10;j++)
-		{
-			cin >> v[j];
-			
-		}
-		sort(v.begin(), v.end(),greater<int>());
-		cout << v[2]<<endl;
-	}
+    vector<int> v(n*n);
+    for(int i=0;i<n*n;i++)
+    {
+        cin>>v[i];
+    }
 
-	return 0;
+    sort(v.begin(),v.end(), greater<int>());
+
+    cout<<v[n-1];
+    return 0;
 }
