@@ -1,51 +1,50 @@
-#include<iostream>
+﻿#include<iostream>
 #include<queue>
 #include<vector>
 
 using namespace std;
-#define MAX 2417000000
-vector<pair<int, int>> V[1002];
-bool Visit[1002];
+vector<pair<int,int>> Edge[1001];
+bool Visited[1001];
+int ans;
 
-int MST()
+void MST()
 {
-	priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>>	pq;
-	pq.push({ 0,1 });
-	int answer = 0;
-	while(!pq.empty())
-	{
-		int Cost = pq.top().first;
-		int Cur = pq.top().second;
-		pq.pop();
-		if (Visit[Cur])
-			continue;
-		Visit[Cur] = true;
-		answer += Cost;
-		for(int i=0;i<V[Cur].size();i++)
-		{
-			if(!Visit[V[Cur][i].first])
-			{
-				pq.push({ V[Cur][i].second,V[Cur][i].first });
-			}
-		}
-
-	}
-	return answer;
+    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
+    pq.push(make_pair(0,1));
+    while(!pq.empty())
+    {
+        int NowCost = pq.top().first;
+        int NowNode = pq.top().second;
+        pq.pop();
+        if(Visited[NowNode])
+            continue;
+        Visited[NowNode] = true;
+        ans += NowCost;
+        for(const pair<int,int>& edge : Edge[NowNode])
+        {
+            int NextNode = edge.first;
+            int NextCost = edge.second;
+            if(!Visited[NextNode])
+                pq.push(make_pair(NextCost,NextNode));
+        }
+    }
 }
-
 int main()
 {
-	int N, M;
-	cin >> N;
-	cin >> M;
-	int s, e, cost;
-	for(int i=0;i<M;i++)
-	{
-		cin >> s >> e >> cost;
-		V[s].push_back({ e,cost });
-		V[e].push_back({ s,cost });
+    cin.tie(0);
+    cout.tie(0);
+    ios_base::sync_with_stdio(false);
+    int N,M;
+    cin>>N>>M;
+    for(int i=0;i<M;i++)
+    {
+        int a,b,c;
+        cin>>a>>b>>c;
+        Edge[a].push_back(make_pair(b,c));
+        Edge[b].push_back(make_pair(a,c));
+    }
 
-	}
-	cout << MST();
-	return 0;
+    MST();
+    cout<<ans;
+    return 0;
 }
