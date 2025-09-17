@@ -1,55 +1,53 @@
-#include<iostream>
+﻿#include<iostream>
 #include<vector>
 #include<algorithm>
 using namespace std;
-int A[100001];
-void Solution(int m,int n)
+vector<int> Arr;
+int N,M;
+
+void BinarySearch(const int& _Search)
 {
-	int start = 0;
-	int end = n - 1;
-	int mid;
-	while (end >= start)
-	{
-		mid = (start + end) / 2;
-		if (A[mid] == m)
-		{
-			cout << 1 << '\n';
-			return;
-		}
-		else if (A[mid] > m)
-		{
-			end = mid - 1;
-		}
-		else
-		{
-			start = mid + 1;
-		}
-	}
-	cout << 0 << '\n';
-	return;
+    int start = 0;
+    int end = N-1;
+    int mid = 0;
+    while(start<=end)
+    {
+        mid = (start+end)/2;
+        if(Arr[mid]==_Search)
+        {
+            cout<<1<<'\n';
+            return;
+        }
+        else if(Arr[mid] > _Search)
+        {
+            end = mid-1;
+        }
+        else
+        {
+            start = mid+1;
+        }
+    }
+    cout<<0<<'\n';
 }
 
 int main()
 {
-	ios_base::sync_with_stdio(0);
-	cin.tie(0);
-	int m;
-	int n;
-	int temp;
-	cin >> n;
-	for (int i = 0; i < n; i++)
-	{
-		cin >> m;
-		A[i]=m;
-	}
-	cin >> m;
-	sort(A,A+n);
-	for (int i = 0;i < m; i++)
-	{
-		cin >> temp;
-		Solution(temp,n);
-	}
-
-	
-	return 0;
+    cin.tie(0);
+    cout.tie(0);
+    ios_base::sync_with_stdio(false);
+    cin>>N;
+    Arr.resize(N);
+    for(int i=0;i<N;i++)
+    {
+        cin>>Arr[i];
+    }
+    cin>>M;
+    int serach;
+    sort(Arr.begin(),Arr.end());
+    for(int i=0;i<M;i++)
+    {
+        cin>>serach;
+        BinarySearch(serach);
+    }
+    return 0;
 }
