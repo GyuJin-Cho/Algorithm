@@ -1,71 +1,65 @@
-#include<iostream>
-#include<vector>
-#include<map>
-#include<algorithm>
-#include<cmath>
-#include<string>
+﻿#include<iostream>
 #include<queue>
-#include<stack>
-#include<set>
-#include<unordered_map>
-#include<unordered_set>
-#include<memory>
-#include<cstring>
+#include<algorithm>
 
 using namespace std;
-int arr[26][26];
-bool visit[26][26];
-int dx[] = { 1,0,-1,0 };
-int dy[] = { 0,1,0,-1 };
-vector<int> cnt;
-int ans;
-int n;
-int sum = 0;
-void DFS(int y, int x)
+
+int N;
+bool Visited[26][26];
+int Map[26][26];
+int Dy[] = {0, 1, 0, -1};
+int Dx[] = {1, 0, -1, 0};
+vector<int> Answer;
+int Count = 0;
+
+void DFS(int _Y, int _X)
 {
-	sum++;
-	visit[y][x] = true;
-	for(int i=0;i<4;i++)
-	{
-		int ny = dy[i]+y;
-		int nx = dx[i]+x;
-		if(ny<n&&nx<n&&ny>=0&&nx>=0&&arr[ny][nx]==1&&!visit[ny][nx])
-		{
-			DFS(ny, nx);
-		}
-	}
+    Count++;
+    Visited[_Y][_X] = true;
+    for (int i = 0; i < 4; i++)
+    {
+        int NextY = _Y + Dy[i];
+        int NextX = _X + Dx[i];
+        if (NextY >= 0 && NextX >= 0 && NextY < N && NextX < N)
+        {
+            if (!Visited[NextY][NextX] && Map[NextY][NextX] == 1)
+            {
+                DFS(NextY, NextX);
+            }
+        }
+    }
 }
 
 int main()
 {
-	cin >> n;
-	string s;
-	for (int i = 0; i < n; i++)
-	{
-		cin >> s;
-		for(int j=0;j<s.size();j++)
-		{
-			arr[i][j] = (s[j] - 48);
-		}
-	}
+    cin >> N;
+    for (int i = 0; i < N; i++)
+    {
+        string temp;
+        cin >> temp;
+        for (int j = 0; j < temp.size(); j++)
+        {
+            Map[i][j] = temp[j] - 48;
+        }
+    }
 
-	for(int i=0;i<n;i++)
-	{
-		for(int j=0;j<n;j++)
-		{
-			if(arr[i][j]==1&&!visit[i][j])
-			{
-				DFS(i, j);
-				cnt.push_back(sum);
-				sum = 0;
-			}
-		}
-	}
-	sort(cnt.begin(), cnt.end());
-	cout << cnt.size() << '\n';
-	for(int i: cnt)
-	{
-		cout << i << '\n';
-	}
-	return 0;
+    int cnt = 0;
+    for (int i = 0; i < N; i++)
+    {
+        for (int j = 0; j < N; j++)
+        {
+            if (Map[i][j] == 1 && !Visited[i][j])
+            {
+                cnt++;
+                DFS(i, j);
+                Answer.push_back(Count);
+                Count = 0;
+            }
+        }
+    }
+    sort(Answer.begin(), Answer.end());
+    cout << cnt << '\n';
+    for (const int& ans : Answer)
+        cout << ans << '\n';
+    return 0;
 }
