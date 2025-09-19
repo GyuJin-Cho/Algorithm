@@ -1,27 +1,26 @@
-#include<iostream>
-#include<vector>
+﻿#include <bits/stdc++.h>
+
 using namespace std;
 
 int main()
 {
-	int N, K;
-	cin >> N >> K;
-	vector<int> v;
-	for (int i = 0; i < N; i++)
-	{
-		int c;
-		cin >> c;
-		v.push_back(c);
-	}
-	int count = 0;
-	for (int i = v.size() - 1; i >= 0; i--)
-	{
-		if (K / v[i] != 0)
-		{
-			count += K / v[i];
-			K = K - (v[i]*(K / v[i]));
-		}
-	}
-	cout << count;
-	return 0;
+    int n,cost;
+    cin>>n>>cost;
+    vector<int> v(n);
+    for(int i=0;i<n;i++)
+        cin>>v[i];
+
+    sort(v.begin(),v.end(),greater<>());
+    int ans = 0;
+    for(const int& i : v)
+    {
+        if(i<=cost)
+        {
+            int tmp = cost / i;
+            cost = cost % i;
+            ans += tmp;
+        }
+    }
+    cout<<ans;
+    return 0;
 }
