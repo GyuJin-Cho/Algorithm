@@ -1,75 +1,62 @@
-#include<iostream>
-#include<vector>
-#include<string>
-#include<stack>
-#include<queue>
-#include<algorithm>
-#define _CRT_SECURE_NO_WARNINGS
-#pragma warning(disable:4996)
+﻿#include <bits/stdc++.h>
+
 using namespace std;
 
-
-vector<pair<int,int>> v[300001];
-vector<int> Dist;
-vector<int> ans;
-#define INF 2147483647
-void answer(int start,int Max)
+int V,E,K;
+vector<pair<int,int>> Arr[20001];
+int Dist[20001];
+vector<int> Ans;
+constexpr int INF=1e9;
+void Dijkstra()
 {
-	priority_queue<pair<int, int>> pq;
-
-	pq.push(make_pair(0, start));
-	Dist[start] = 0;
-	while (!pq.empty())
-	{
-		int cost = -pq.top().first;
-		int cur = pq.top().second;
-		pq.pop();
-
-		for (int i = 0; i < v[cur].size(); i++)
-		{
-			int Next = v[cur][i].first;
-			int nCost = v[cur][i].second;
-
-			if (Dist[Next] > cost + nCost)
-			{
-				Dist[Next] = cost + nCost;
-				pq.push(make_pair(-Dist[Next], Next));
-			}
-		}
-	}
-
-	for (int i = 1; i <= Max; i++)
-	{
-		if (Dist[i] == INF)
-		{
-			cout << "INF" << endl;
-			continue;
-		}
-		printf("%d\n",Dist[i]);
-	}
-
+    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
+    pq.push(make_pair(0,K));
+    Dist[K] = 0;
+    while(!pq.empty())
+    {
+        int nownode = pq.top().second;
+        int nowcost = pq.top().first;
+        pq.pop();
+        if(nowcost>Dist[nownode])
+            continue;
+        for(int i=0;i<Arr[nownode].size();i++)
+        {
+            int nextcost = Arr[nownode][i].second;
+            int nextnode = Arr[nownode][i].first;
+            if(nextcost+nowcost < Dist[nextnode])
+            {
+                Dist[nextnode] = nextcost + nowcost;
+                pq.push(make_pair(Dist[nextnode],nextnode));
+            }
+        }
+    }
 }
 
 int main()
 {
-	/*ios::sync_with_stdio(false);
-	cin.tie(NULL);*/
-	int V, E;
-	scanf("%d%d", &V, &E);
-	int start;
-	scanf("%d", &start);
+    cin.tie(0);
+    cout.tie(0);
+    ios_base::sync_with_stdio(false);
+    cin>>V>>E>>K;
 
-	int s, e, d;
+    fill(Dist,Dist+20001, INF);
+    
+    for(int i=0;i<E;i++)
+    {
+        int u,v,w;
+        cin>>u>>v>>w;
+        Arr[u].push_back(make_pair(v,w));
+    }
 
-	Dist.resize(V+1, INF);
+    Dijkstra();
 
-	for (int i = 1; i <= E; i++)
-	{
-		scanf("%d%d%d", &s, &e, &d);
-		v[s].push_back(make_pair(e,d));
-	}
-
-	answer(start,V);
-
-	return 0;
+    for(int i=1;i<=V;i++)
+    {
+        if(Dist[i] == INF)
+            cout<<"INF"<<'\n';
+        else
+            cout<<Dist[i]<<'\n';
+    }
+    
+    return 0;
 }
