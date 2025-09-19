@@ -1,81 +1,72 @@
-#include<iostream>
-#include<vector>
-#include<map>
-#include<algorithm>
-#include<cmath>
-#include<string>
-#include<queue>
-#include<stack>
-#include<set>
-#include<unordered_map>
-#include<unordered_set>
-#include<memory>
-#include<cstring>
+﻿#include<bits/stdc++.h>
 
 using namespace std;
-constexpr int MAX = 100000001;
-vector<pair<int,int>> V[1001];
-int Dist[1001];
-int BeforeCity[1001];
-int n,m,s, e;
-void Dijkstra(const int& start)
-{
-	priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
-	pq.push({ 0,start });
-	Dist[start] = 0;
-	while(!pq.empty())
-	{
-		int NowCost = pq.top().first;
-		int NowNode = pq.top().second;
-		pq.pop();
-		if(NowCost>Dist[NowNode])
-		{
-			continue;
-		}
-		for(int i=0;i<V[NowNode].size();i++)
-		{
-			int nc = V[NowNode][i].second;
-			int nn = V[NowNode][i].first;
-			if(nc+NowCost<Dist[nn])
-			{
-				Dist[nn] = nc + NowCost;
-				pq.push({Dist[nn],nn });
-				BeforeCity[nn] = NowNode;
-			}
-		}
-	}
 
+constexpr int INF = 100000001;
+int N,M,S,E;
+vector<pair<int,int>> Edge[1001];
+int Dist[1001];
+int HistoryCity[1001];
+
+void Dijkstra()
+{
+    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
+    pq.push(make_pair(0,S));
+    Dist[S] = 0;
+    while(!pq.empty())
+    {
+        int nowcost = pq.top().first;
+        int nownode = pq.top().second;
+        pq.pop();
+
+        if(nowcost > Dist[nownode])
+            continue;
+
+        for(int i=0;i<Edge[nownode].size();i++)
+        {
+            int nextnode = Edge[nownode][i].first;
+            int nextcost = Edge[nownode][i].second;
+
+            if(nextcost + nowcost < Dist[nextnode])
+            {
+                Dist[nextnode] = nextcost + nowcost;
+                pq.push(make_pair(Dist[nextnode], nextnode));
+                HistoryCity[nextnode] = nownode;
+            }
+        }
+    }
 }
 
 int main()
 {
-	cin >> n;
-	cin >> m;
-	fill(Dist, Dist + n, MAX);
-	for(int i=0;i<m;i++)
-	{
-		int a, b, c;
-		cin >> a >> b>>c;
-		V[a].push_back({b,c});
-	}
-	
-	cin >> s >> e;
-	Dijkstra(s);
-	cout << Dist[e]<<'\n';
-	vector <int> arr;
-	arr.push_back(e);
-	int val = BeforeCity[e];
-	while (val)
-	{
-		arr.push_back(val);
-		val = BeforeCity[val];
-	}
+    cin>>N>>M;
+    fill(Dist,Dist+N+1,INF);
 
-	cout << arr.size() << '\n';
-	for (int i = arr.size() - 1; i >= 0; i--) 
-	{
-		cout << arr[i] << ' ';
-	}
+    for(int i=0;i<M;i++)
+    {
+        int u,v,w;
+        cin>>u>>v>>w;
+        Edge[u].push_back(make_pair(v,w));
+    }
 
-	return 0;
+    cin>>S>>E;
+
+    Dijkstra();
+
+    cout<<Dist[E]<<'\n';
+
+    vector<int> history;
+    history.push_back(E);
+    int val = HistoryCity[E];
+    while(val != 0)
+    {
+        history.push_back(val);
+        val = HistoryCity[val];
+    }
+
+    cout<<history.size()<<'\n';
+    for(int i=history.size() - 1 ; i>=0;i--)
+        cout<<history[i]<<' ';
+    
+    return 0;
 }
