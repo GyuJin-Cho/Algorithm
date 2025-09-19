@@ -1,52 +1,32 @@
-#include<iostream>
-#include<vector>
-#include<map>
-#include<algorithm>
-#include<cmath>
-#include<string>
-#include<queue>
-#include<stack>
-#include<set>
-#include<unordered_map>
-#include<unordered_set>
-#include<memory>
-#include<cstring>
-
+﻿#include <bits/stdc++.h>
 using namespace std;
-#define MAX 100001
-int dist[MAX];
-int cost[MAX];
+
 int main()
 {
-	int n;
-	long long ans = 0;
-	long long now;
-	cin >> n;
-	for (int i = 1; i < n; i++)
-	{
-		cin >> dist[i];
-	}
-	for (int i = 0; i < n; i++)
-	{
-		cin >> cost[i];
-	}
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 
-	now = cost[0];
-	ans = now * dist[1];
+    int N;
+    cin >> N;
 
-	for (int i = 1; i < n; i++)
-	{
-		if (now < cost[i])
-		{
-			ans += now * dist[i + 1];
-		}
-		else
-		{
-			now = cost[i];
-			ans += now * dist[i + 1];
-		}
-	}
-	cout << ans;
+    vector<long long> Dist(N - 1);
+    for (int i = 0; i < N - 1; ++i)
+        cin >> Dist[i];
 
-	return 0;
+    vector<long long> Price(N);
+    for (int i = 0; i < N; ++i)
+        cin >> Price[i];
+
+    long long MinPrice = Price[0];
+    long long total = MinPrice * Dist[0];
+
+    for (int i = 1; i < N - 1; ++i)
+    {
+        if (Price[i] < MinPrice)
+            MinPrice = Price[i];
+        total += MinPrice * Dist[i];
+    }
+
+    cout << total << '\n';
+    return 0;
 }
